@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ffmpeg on Asimov Ai</title>
+    <link>http://localhost:1313/tags/ffmpeg/</link>
+    <description>Recent content in Ffmpeg on Asimov Ai</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 07 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ffmpeg/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FFmpeg 编码和编辑入门</title>
+      <link>http://localhost:1313/posts/getting-started-with-ffmpeg-encoding-and-editing/</link>
+      <pubDate>Sat, 07 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/getting-started-with-ffmpeg-encoding-and-editing/</guid>
+      <description>本文主要内容翻译自一篇介绍 FFmpeg 入门知识的英文 Web 幻灯片，加入了一些个人理解与学习注释。</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithn on Asimov Ai</title>
+    <link>http://localhost:1313/tags/algorithn/</link>
+    <description>Recent content in Algorithn on Asimov Ai</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/algorithn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>算法复杂度分析入门</title>
+      <link>http://localhost:1313/posts/introduction-to-algorithm-complexity-analysis/</link>
+      <pubDate>Sun, 10 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/introduction-to-algorithm-complexity-analysis/</guid>
+      <description>一篇讲解基础的算法复杂度分析原理和方法的文章。</description>
+    </item>
+  </channel>
+</rss>

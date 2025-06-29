@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<link rel="icon" type="image/ico" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="http://localhost:1313/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:1313/apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    算法复杂度分析入门 | Asimov Ai
+    
+</title>
+
+<link rel="canonical" href="http://localhost:1313/posts/introduction-to-algorithm-complexity-analysis/"/>
+
+<meta property="og:url" content="http://localhost:1313/posts/introduction-to-algorithm-complexity-analysis/">
+  <meta property="og:site_name" content="Asimov Ai">
+  <meta property="og:title" content="算法复杂度分析入门">
+  <meta property="og:description" content="一篇讲解基础的算法复杂度分析原理和方法的文章。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-04-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-04-10T00:00:00+00:00">
+    <meta property="article:tag" content="Algorithn">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.a160d2600f27eb793ee832ae0b2ebd5d2ae357db3be08cde44d5af70fa231477.css" media="all">
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+   
+    
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="http://localhost:1313/">Asimov Ai</a>
+    </h1>
+
+    <div class="header-menu">
+        
+
+        
+        
+
+        <p
+            class="small ">
+            <a href="/posts" >
+                /posts
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/projects" >
+                /projects
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+<div class="breadcrumbs"><a href="/">Home</a><span class="breadcrumbs-separator">/</span><a href="/posts/">Posts</a><span class="breadcrumbs-separator">/</span>
+        <a href="/posts/introduction-to-algorithm-complexity-analysis/">算法复杂度分析入门</a></div>
+
+
+<div >
+  <article>
+    <header class="single-intro-container">
+        
+        <h1 class="single-title">算法复杂度分析入门</h1>
+        <p class="single-summary">一篇讲解基础的算法复杂度分析原理和方法的文章。</p>
+        
+        <div class="single-subsummary">
+          
+          <div>
+            
+            <p class="single-date">
+              <time datetime="2022-04-10T00:00:00&#43;00:00">April 10, 2022</time>
+              &nbsp; · &nbsp;5 min read
+            </p>
+          </div>
+        </div>
+        
+    </header>    
+        <div class="single-tags"><span>
+                  <a href="http://localhost:1313/tags/algorithn/">#Algorithn</a>
+                </span>
+        </div>
+      <aside class="toc">
+        <p><strong>Table of contents</strong></p>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#大-o-表示法">大 O 表示法</a>
+      <ul>
+        <li><a href="#时间复杂度分析">时间复杂度分析</a></li>
+        <li><a href="#空间复杂度分析">空间复杂度分析</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </aside>
+    
+    <div class="single-content">
+      <p><strong>执行效率</strong>和<strong>资源消耗</strong>是评价一个算法优劣最关键的两个点，分别代表运行这个算法所需要消耗的<strong>时间</strong>和<strong>空间</strong>（内存/硬盘）</p>
+<p>分析运行一个算法需要消耗多少时间的行为叫做<strong>时间复杂度分析</strong>，同理，分析运行一个算法需要消耗多少空间的行为叫做<strong>空间复杂度分析</strong>。</p>
+<p>实际上，如果我们直接将算法运行一遍，记录下运行过程中消耗的时间和空间，就可以得到这个算法准确的资源消耗情况。这种思路确实是可以，我们可以管这种方法叫做<strong>事后统计法</strong>。</p>
+<p>但是这样得出来的结果变量太多，比如测试环境的硬件性能，软件（操作系统 / SDK 等）版本，测试的数据规模，甚至是实现算法所用的编程语言，都对结果都有或多或少的影响。而如果想要测试条件覆盖尽可能多的情况，就会产生极其巨大的工作量，即便是一个很简单的算法，都需要非常大量的测试。这显然不是一个可取的方法。</p>
+<p>因此，事后统计法一般只适合在特定环境下给特定的程序做性能测试（例如很多程序在上线之前都要做压力测试），不适合用来对一个通用型的算法或程序做无差别的性能评估。</p>
+<h2 class="heading" id="大-o-表示法">
+  大 O 表示法
+  <a class="anchor" href="#%e5%a4%a7-o-%e8%a1%a8%e7%a4%ba%e6%b3%95">#</a>
+</h2>
+<p>为了在程序运行前，不依赖具体测试结果，就能无差别的评估一个算法的执行效率，工程师们使用了一个数学中的概念：<a href="https://zh.wikipedia.org/wiki/%E5%A4%A7O%E7%AC%A6%E5%8F%B7"><strong>大 O 符号，又称渐进符号</strong></a></p>
+<p><strong>大 O 表示法</strong>是目前做算法复杂度分析时所使用的行业标准，这是一个抽象的概念，它<strong>表示的不是某个具体的值，而是一种趋势</strong>。</p>
+<p>比如下面是一个计算 1 + 2 + 3 + &hellip; + n 的累加式的函数：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">foo</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 1; i &lt;= n; i++) {
+</span></span><span style="display:flex;"><span>		sum = sum + i;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>假定计算机每执行一行代码所消耗的时间为 $t$，那么在这个例子中，第二行是一个简单的赋值操作，消耗时间为 $t$，第四、五行是一个循环操作，消耗时间为 $2n\times t$，那么程序总消耗时间为 $T(n)= t + 2nt$</p>
+<p>再看下面这个例子：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">bar</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 1; i &lt;= n; i++) {
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> j = 1; j &lt;= n; j++) {
+</span></span><span style="display:flex;"><span>			sum = sum + i * j;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在这个例子中，第二行耗费的时间为 $t$，三、四、五行是一个双层循环，其中第四、五行耗费的时间是 $2n^2\times t$，第三行耗费的时间是 $nt$，那么总的时间消耗为 $T(n)=t+nt+2n^2t$</p>
+<p>通过两个例子，可以发现一个明显的规律：<strong>代码的总执行时间 $T(n)$ 与每行代码的执行次数 $n$ 成正比。</strong></p>
+<p>利用大 O 符号，我们可以把这个规律表示为：$$T(n) = O(f(n))$$
+这个表达式称之为 <strong>大 O 表达式</strong>，其中：$T(n)$ 表示程序总的执行时间，$f(n)$ 表示每行代码执行的总次数，$n$ 表示数据规模的大小，$O$ 表示 $T(n)$ 与 $f(n)$ 成正比。</p>
+<p>所以，大 O 表达式实际上并不是代表程序具体执行的时间，而是<strong>表示代码执行时间随数据规模增长的变化趋势</strong>，因此，也叫做<strong>渐进时间复杂度</strong>（asymptotic time complexity），简称<strong>时间复杂度</strong>。</p>
+<p>在大 O 表达式中，当 $n$ 趋近于无限大时，公式中的<strong>常量、系数、低阶部分对增长趋势的影响非常小，可以忽略不计</strong>，因为现代计算机的执行速度非常快，通常能达到每秒几百亿次，因此我们只需要记录一个最大量级即可。</p>
+<p>因此，第一个例子中我们得出的 $T(n)=t+2nt$，忽略常量 $t$ 和系数 $2t$ 之后，用大 O 表示法为：$T(n)=O(n)$</p>
+<p>第二个例子中的 $T(n)=t+nt+2n^2t$ 忽略常量和系数，保留最大量级后，用大 O 表示法为：$T(n)=O(n^2)$  <em>（这个例子在后文“加法法则”中会有更详细的解释）</em></p>
+<p>这种分析思路来源于数学中的 <a href="https://zh.wikipedia.org/wiki/%E6%B8%90%E8%BF%91%E5%88%86%E6%9E%90">渐进分析</a> 方法，计算机科学实际上就是从数学中独立出来的一个分支，在解决比较底层和抽象层面的问题上，基本都是数学方法。</p>
+<h3 class="heading" id="时间复杂度分析">
+  时间复杂度分析
+  <a class="anchor" href="#%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6%e5%88%86%e6%9e%90">#</a>
+</h3>
+<p>在算法的复杂度分析中，时间复杂度分析通常比空间复杂度分析更重要，也更复杂。因为计算机的空间（硬件）是可以扩容的，而人类目前的科技能力，还远远达不到“扩容时间”的水平。时间，是世间最宝贵的资源，因此，我们先重点关注时间复杂度分析。</p>
+<h4 class="heading" id="分析技巧">
+  分析技巧
+  <a class="anchor" href="#%e5%88%86%e6%9e%90%e6%8a%80%e5%b7%a7">#</a>
+</h4>
+<p>分析代码的时间复杂度一般都需要按照具体逻辑具体分析，不过也有一些可以帮助我们简化分析的技巧，下面分享两个最常用的分析技巧。</p>
+<h5 class="heading" id="1-乘法法则">
+  1. 乘法法则
+  <a class="anchor" href="#1-%e4%b9%98%e6%b3%95%e6%b3%95%e5%88%99">#</a>
+</h5>
+<p>如下示例：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">foo</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 1; i &lt;= n; i++) {
+</span></span><span style="display:flex;"><span>		sum = sum + bar(i);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">bar</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 1; i &lt;= n; i++) {
+</span></span><span style="display:flex;"><span>		sum = sum + i;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这其实是一个拆成两个函数的嵌套循环，如果函数 <code>foo()</code> 的循环体中是一个简单的操作，那么两个函数的时间复杂度都是 $O(n)$，但是函数 <code>foo()</code> 的循环体中调用了函数 <code>bar()</code>，而函数<code>bar()</code>的时间复杂度是$O(n)$，因此函数 <code>foo()</code> 的时间复杂度就是 $O(n)*O(n) = O(n^2)$</p>
+<p>如上所示，<strong>复杂度分析的乘法法则抽象为数学公式就是：</strong>
+
+$$
+\begin{equation}
+\begin{split}
+T(n) &=T_1(n) * T_2(n) \\
+&= O(f(n)) * O(g(n)) \\ 
+& = O(f(n)*g(n))
+\end{split}
+\end{equation}
+$$
+
+</p>
+<p>当碰到嵌套循环代码时，可以使用乘法法则帮助我们分析复杂度：<strong>嵌套代码的复杂度等于嵌套内外代码复杂度的乘积。</strong></p>
+<p>例如外层循环时间复杂度为 $O(f(n))$，内层循环时间复杂度为 $O(g(n))$，那么总的时间复杂度就是 $O(f(n)*g(n))$</p>
+<h5 class="heading" id="2-加法法则">
+  2. 加法法则
+  <a class="anchor" href="#2-%e5%8a%a0%e6%b3%95%e6%b3%95%e5%88%99">#</a>
+</h5>
+<p>如下示例：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">cal</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 1; i &lt;= 100; i++) {
+</span></span><span style="display:flex;"><span>		sum = sum + i;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	sum = sum + foo(n);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	sum = sum + bar(n);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">foo</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 1; i &lt;= n; i++) {
+</span></span><span style="display:flex;"><span>		sum = sum + i;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">bar</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 1; i &lt;= n; i++) {
+</span></span><span style="display:flex;"><span>		sum = sum + foo(n);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>根据上面的计算规则，我们知道函数 <code>foo()</code> 的时间复杂度 $T_1(n) = O(n)$，函数 <code>bar()</code> 的时间复杂度 $T_2(n) = O(n^2)$，而函数 <code>cal()</code> 中的第一段是个 100 次的循环，虽然是个循环，但是个已知次数的常量循环，与数据规模 $n$ 无关。同时，随着数据规模的增大，$O(n^2)$ 的时间复杂度会远高于 $O(n)$，此时只需要取复杂度最高的值即可，因此总复杂度
+
+$$
+\begin{split}
+T(n) &= T_1(n) + T_2(n) \\
+&= O(n) + O(n^2) \\
+&= max(O(n),O(n^2)) \\ 
+&= O(n^2)
+\end{split}
+$$ 
+
+</p>
+<p>如上所示，<strong>复杂度分析的加法法则抽象为数据公式就是：</strong>
+
+$$
+\begin{split}
+T(n) &= T_1(n) + T_2(n) \\
+&= O(f(n)) + O(g(n)) \\
+&= max(O(f(n)),O(g(n))) \\
+&= O(max(f(n),g(n)))
+\end{split}
+$$
+
+
+当碰到程序中包含多个子函数/算法时，可以使用加法法则帮助我们分析复杂度：<strong>总复杂度等于量级最大的那段代码的复杂度。</strong></p>
+<p><strong>⚠️ 注意：如果在多段代码中，无法确定哪一段复杂度最大，那么直接相加即可。</strong></p>
+<p>如 $T_1=O(n)$，$T_2=O(m)$，在无法确定 $m$ 和 $n$ 谁更大时，则 $T(n)=O(n+m)$</p>
+<p>大部分情况下，复杂的算法或者程序都是由简单的算法步骤组合而成，这两个技巧有助于我们在分析复杂算法的时候理清思路，不被绕晕。理解这两个法则之后会发现，都是很自然的规律，所以不用刻意去记忆和套用，多分析几个实例，自然就熟悉了，而且可以总结出更适合自己思维习惯的技巧。</p>
+<h4 class="heading" id="分析实例">
+  分析实例
+  <a class="anchor" href="#%e5%88%86%e6%9e%90%e5%ae%9e%e4%be%8b">#</a>
+</h4>
+<p>虽然代码千变万化，但是得益于数学思想的高度抽象性，以下几种形式就能囊括绝大部分算法的复杂度（按时间复杂度量级升序排列）：</p>
+<ol>
+<li>常数阶：$O(1)$</li>
+<li>对数阶：$O(log\ n)$</li>
+<li>线性阶：$O(n)$</li>
+<li>线性对数阶：$O(n*log\ n)$</li>
+<li>k次方阶：$O(n^k)$</li>
+<li>指数阶：$O(k^n)$</li>
+<li>阶乘阶：$O(n!)$</li>
+</ol>
+<p>以上 7 种量级的复杂度，可以分为两类：<strong>多项式量级</strong>和<strong>非多项式量级</strong>，其中<strong>非多项式量级只有两个：$O(k^n)$ 和 $O(n!)$</strong>。</p>
+<p>时间复杂度为非多项式量级的算法问题也叫做 <a href="https://zh.wikipedia.org/wiki/NP_(%E8%A4%87%E9%9B%9C%E5%BA%A6)">NP（Non-Deterministic Polynomial 非确定多项式）问题</a></p>
+<p>随着数据规模的增大，非多项式时间复杂度量级的算法，执行时间会急剧增加，所以，<strong>非多项式时间复杂度的算法一般效率都很低</strong>，除非是确定性的小规模数据应用场景，大多是情况下都<strong>不应该使用</strong>，否则容易造成程序性能急剧下降。</p>
+<p>我们主要看下几种常见的<strong>多项式时间复杂度</strong>的例子：</p>
+<h5 class="heading" id="1-常数阶-o1">
+  1. 常数阶 $O(1)$
+  <a class="anchor" href="#1-%e5%b8%b8%e6%95%b0%e9%98%b6-o1">#</a>
+</h5>
+<p>首先还是要重申一下大 O 表达式的概念：表示程序执行时间随数据规模增长的变化趋势。</p>
+<p>所以 $O(1)$ 并不是说只执行一行代码，而是指执行时间不会随着数据规模的增大而无增大，比如下面这个例子：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">sum</span>() {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> i = 1;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> j = 2;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> i + j;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>即便需要执行 3 行代码，它的时间复杂度也是 $O(1)$，而不是 $O(3)$</p>
+<p>通常情况下，如果一段代码里没有循环、递归，其时间复杂度都是 $O(1)$，其函数图形如下</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class=" img-small">
+
+    <div class="img-container" style="--w: 574; --h: 392;">
+        <img loading="lazy" alt="常数阶时间复杂度函数图" src="/posts/introduction-to-algorithm-complexity-analysis/images/85d1202946c140bad6acf506b756aa6b.webp#small" width="574" height="392">
+    </div>
+
+    
+</figure>
+</p>
+<h5 class="heading" id="2-线性阶-on">
+  2. 线性阶 $O(n)$
+  <a class="anchor" href="#2-%e7%ba%bf%e6%80%a7%e9%98%b6-on">#</a>
+</h5>
+<p>线性阶也是一种非常常见的时间复杂度量级，比如文章一开始我们就分析过的第一个例子：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">foo</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 1; i &lt;= n; i++) {
+</span></span><span style="display:flex;"><span>		sum = sum + i;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这就是一个典型的 $O(n)$ 复杂度的例子，程序执行时间的增长幅度和数据规模的增长幅度保持一致。</p>
+<p>通常情况下，一个简单的单层循环的时间复杂度就是 $O(n)$ ，其函数图形如下：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class=" img-small">
+
+    <div class="img-container" style="--w: 540; --h: 395;">
+        <img loading="lazy" alt="线性阶时间复杂度函数曲线" src="/posts/introduction-to-algorithm-complexity-analysis/images/2015f6218f318728b8848f75087a0174.webp#small" width="540" height="395">
+    </div>
+
+    
+</figure>
+</p>
+<h5 class="heading" id="3-对数阶-olog-n">
+  3. 对数阶 $O(log\ n)$
+  <a class="anchor" href="#3-%e5%af%b9%e6%95%b0%e9%98%b6-olog-n">#</a>
+</h5>
+<p>对数阶是也是很常见，但是分析起来复杂一些的时间复杂度类型。看下面这个例子：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">foo</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> i = 1;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">while</span> (i &lt; n) {
+</span></span><span style="display:flex;"><span>		i = i * 2;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> i;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic">// 这段代码的逻辑是： i 在循环中不断乘 2 ，直到 i &gt;= n 时，退出循环</span>
+</span></span></code></pre></div><p>根据上文的分析，我们只要分析出这个循环执行了多少次，就能算出这段代码的时间复杂度。</p>
+<p>实际上就是等比数列：$1<em>2</em>2<em>2</em>2\cdots = n$，也就是 $2^x = n$ 求解 $x$，高中数学给了我们答案：$x = log_2n$ ，所以这个循环执行了 $log_2n$ 遍，因此这段代码的时间复杂度为 $O(log_2n)$</p>
+<p>如果我们把上述例子中的常量乘数 <code>2</code> 换成 <code>3</code>，那么时间复杂度就变成了 $O(log_3n)$</p>
+<p>根据对数的<a href="https://zh.wikipedia.org/wiki/%E5%AF%B9%E6%95%B0#%E8%BF%90%E7%AE%97%E5%85%AC%E5%BC%8F">链式运算</a>，我们知道 $log_3n = log_32 * log_2n$，那么 $O(log_3n) = O(log_32 * log_2n)$，其中 $log_32$ 是一个常量系数，基于上文我们的分析，<strong>在大 O 表示法中，可以忽略系数：</strong> $O(C*f(n)) = O(f(n))$</p>
+<p>也就是说，在 $O(log_kn)$ 这样的对数阶复杂度中，无论底数常量 $k$ 是多少，复杂度都是一样的，所以我们统一忽略底数，将对数阶复杂度表示为：$O(log\ n)$，其函数图像图下：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class=" img-small">
+
+    <div class="img-container" style="--w: 576; --h: 393;">
+        <img loading="lazy" alt="对数阶时间复杂度图形" src="/posts/introduction-to-algorithm-complexity-analysis/images/3d0826c1b8875e11e0d1cfe098eeea1a.webp#small" width="576" height="393">
+    </div>
+
+    
+</figure>
+</p>
+<h5 class="heading" id="4-线性对数阶-onlog-n">
+  4. 线性对数阶 $O(n*log\ n)$
+  <a class="anchor" href="#4-%e7%ba%bf%e6%80%a7%e5%af%b9%e6%95%b0%e9%98%b6-onlog-n">#</a>
+</h5>
+<p>理解了对数阶 $O(log\ n)$ 之后，理解线性对数阶就容易很多了。将一个 $O(log\ n)$ 复杂度的步骤，执行 $n$ 遍，其复杂度就是 $O(nlog\ n)$</p>
+<p>如下是一个简单的 $O(nlog_n)$ 时间复杂度程序的示例：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">foo</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> j = 1; j &lt;= n; j++) {
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold;text-decoration:underline">int</span> i = 1;
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold;text-decoration:underline">while</span> (i &lt;= n) {
+</span></span><span style="display:flex;"><span>			i = i * 2;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic">// 这段代码中，外面套的这层 for 循环并没有什么实际意义，仅作为演示说明</span>
+</span></span></code></pre></div><p>根据前文我们提到的乘法法则，这段代码的时间复杂度很容易计算得出：$T(n) = O(n) * O(log_n) = O(nlog_n)$ 这就是线性对数阶，其函数图像如下：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class=" img-small">
+
+    <div class="img-container" style="--w: 511; --h: 393;">
+        <img loading="lazy" alt="线性对数阶" src="/posts/introduction-to-algorithm-complexity-analysis/images/db31628a34cae674c6bf697e920baad4.webp#small" width="511" height="393">
+    </div>
+
+    
+</figure>
+</p>
+<h5 class="heading" id="5-k-次方阶-onk">
+  5. K 次方阶 $O(n^k)$
+  <a class="anchor" href="#5-k-%e6%ac%a1%e6%96%b9%e9%98%b6-onk">#</a>
+</h5>
+<p>这也是最常见的时间复杂度之一，$K$ 是常数，如下是一个非常简单的平方阶时间复杂度示例：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">foo</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 1; i &lt;= n; i++) {
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> j = 1; j &lt;= n; j++) {
+</span></span><span style="display:flex;"><span>			sum = sum + i * j;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>利用上文介绍的乘法法则，很快就能计算出这段代码的时间复杂度：$T(n)=O(n)*O(n)=O(n^2)$，其函数图像图下：</p>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class=" img-small">
+
+    <div class="img-container" style="--w: 515; --h: 397;">
+        <img loading="lazy" alt="平方阶函数图像" src="/posts/introduction-to-algorithm-complexity-analysis/images/ce63b2e33080a54aaf24d508c6dba408.webp#small" width="515" height="397">
+    </div>
+
+    
+</figure>
+</p>
+<p>⚠️ 注意：<strong>次方阶 $O(n^k)$ 容易和指数阶 $O(k^n)$ 混淆</strong>，它们都是指数函数，<strong>区别在于数据规模 $n$ 是底数还是指数</strong>，如果数据规模 $n$ 是指数的话，复杂度会急剧上升，参考前文的<a href="https://zh.wikipedia.org/wiki/NP_(%E8%A4%87%E9%9B%9C%E5%BA%A6)">NP 问题</a></p>
+<h4 class="heading" id="分析进阶">
+  分析进阶
+  <a class="anchor" href="#%e5%88%86%e6%9e%90%e8%bf%9b%e9%98%b6">#</a>
+</h4>
+<p>以上都是一些逻辑相对简单的例子，我们在实际编写程序的时候，通常会有一些提升效率的操作和技巧，这会让我们在分析时间复杂的过程中要考虑的因素更多一些。</p>
+<p>如下示例：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#888;font-style:italic">// array 是一个数组</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> <span style="color:#666;font-weight:bold;font-style:italic">find</span>(<span style="font-weight:bold;text-decoration:underline">int</span>[] array, <span style="font-weight:bold;text-decoration:underline">int</span> x) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span> (<span style="font-weight:bold;text-decoration:underline">int</span> i = 0; i &lt; array.length -1 ; i++) {
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold;text-decoration:underline">if</span> (array[i] == x) {
+</span></span><span style="display:flex;"><span>			<span style="font-weight:bold;text-decoration:underline">return</span> i;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">return</span> -1;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic">// 这个函数的逻辑是找出数组 array 中目标数值 x 的下标位置，如果数组中没有目标值 x ，就返回 -1</span>
+</span></span></code></pre></div><p>这段程序是在遍历数组，但又不完全是在遍历数组。因为循环中间的这个 <code>return</code> 导致我们不得不思考一个问题：如果 <code>x</code> 就在数组的第一位，那么这个函数就并不会遍历整个数组，而是在第一次循环就退出，这个时候时间复杂度就是 $O(1)$，但是如果 <code>x</code> 在数组中的最后一位，或是数组中根本不存在 <code>x</code>，那么就需要遍历整个数组，这个时候时间复杂度就变成了 $O(n)$ （$n$ 是数组的长度）</p>
+<p>所以这段代码在不同情况下，时间复杂度是不一样的。</p>
+<p>为了表示不同情况下的时间复杂度，我们需要再引入三个概念：<strong>最好时间复杂度</strong>，<strong>最坏时间复杂度</strong>和<strong>平均时间复杂度</strong>。</p>
+<h5 class="heading" id="最好最坏时间复杂度">
+  最好/最坏时间复杂度
+  <a class="anchor" href="#%e6%9c%80%e5%a5%bd%e6%9c%80%e5%9d%8f%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6">#</a>
+</h5>
+<p><strong>最好和最坏时间复杂度</strong>比较简单，顾名思义，它们<strong>分别表示在最理想和最不理想的情况下代码的时间复杂度</strong>。</p>
+<p>对应上述的例子，就是 <code>x</code> 在数组第一位，和 <code>x</code> 在数组最后一位或者不在数组中的情况。</p>
+<h5 class="heading" id="平均时间复杂度">
+  平均时间复杂度
+  <a class="anchor" href="#%e5%b9%b3%e5%9d%87%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6">#</a>
+</h5>
+<p>很明显，最理想和最不理想的情况发生的概率都很低，这样评估复杂度的话，不够准确。为了更准确的评估这种情况下的时间复杂度，我们就需要另一个概念：平均时间复杂度。</p>
+<p>还是上面那个例子，<code>x</code> 在数组中位置的可能性有 $n+1$ 种情况，分别是在数组中的任意位置和不在数组中。我们把每种情况下需要执行的次数加起来，再除以 $n+1$ 就可以得到平均情况下的时间复杂度：$$\frac{1+2+3+\cdots+n+n}{n+1}$$</p>
+<p>我们把这个式子稍微简化一下，我们知道 $1+2+3+\cdots+n=\frac{n(n+1)}{2}$（推导过程可以看<a href="https://zhuanlan.zhihu.com/p/88704434">这里</a>）所以：$$\frac{1+2+\cdots n+n}{n+1}=\frac{n(n+1)/2+n}{n+1}=\frac{n(n+3)}{2(n+1)}$$</p>
+<p>忽略常量和系数之后可以看出，这是个线性阶的时间复杂度（看不出来的话带入几个数算算也行），也就是 $O(n)$，这个就是平均时间复杂度。</p>
+<p>但是这样计算平均时间复杂度，还是不够准确，因为每种情况出现的概率并不一样。首先从大方向上看， <code>X</code> 只能是在或不在数组中，这两种情况准确的概率统计起来并不容易。为了方便理解，我们将其概率分别假设为 <code>1/2</code> ，同时，<code>x</code> 在数组中不同位置出现的概率也分别为 <code>1/n</code>，所以，根据概率乘法法则，<code>x</code> 出现在数组中各个不同位置的概率为：$$\frac{1}{2}\star\frac{1}{n}=\frac{1}{2n}$$</p>
+<p>然后，我们再将各种情况的概率因素考虑进去，平均时间复杂度的计算就变成了：$$1*\frac{1}{2n}+2*\frac{1}{2n}+\cdots+n*\frac{1}{2n}+n*\frac{1}{2}=\frac{3n+1}{4}$$
+这个值就是概率论中的加权平均值，也叫做<strong>期望值</strong>，所以更准确的平均时间复杂度，应该叫做<strong>加权平均时间复杂度</strong>，或者<strong>期望时间复杂度</strong>。</p>
+<p>$\frac{3n+1}{4}$去掉常量和系数之后，用大O表达式描述，加上概率之后的平均复杂度还是 $O(n)$，有时简单平均和加权平均复杂度是一样的，也有时会不一样。</p>
+<p>平均时间复杂度的计算方式确实有些复杂，但是平时使用得其实并不多，多数情况下使用单一复杂度评估即可。</p>
+<h5 class="heading" id="均摊时间复杂度">
+  均摊时间复杂度
+  <a class="anchor" href="#%e5%9d%87%e6%91%8a%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6">#</a>
+</h5>
+<p>上文提到，只有在一些特殊情况下才需要使用平均时间复杂度去评估程序，而均摊时间复杂度更加特殊，使用到的情况更少。如下代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#888;font-style:italic">// array表示一个长度为n的数组 </span>
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic">// 代码中的array.length就等于n </span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span>[] array = <span style="font-weight:bold;text-decoration:underline">new</span> <span style="font-weight:bold;text-decoration:underline">int</span>[n]; 
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">int</span> count = 0; 
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">void</span> <span style="color:#666;font-weight:bold;font-style:italic">insert</span>(<span style="font-weight:bold;text-decoration:underline">int</span> val) { 
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">if</span> (count == array.length) {
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold;text-decoration:underline">int</span> sum = 0; 
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold;text-decoration:underline">for</span> (<span style="font-weight:bold;text-decoration:underline">int</span> i = 0; i &lt; array.length; ++i) { 
+</span></span><span style="display:flex;"><span>			sum = sum + array[i]; 
+</span></span><span style="display:flex;"><span>		} 
+</span></span><span style="display:flex;"><span>		array[0] = sum; 
+</span></span><span style="display:flex;"><span>		count = 1; 
+</span></span><span style="display:flex;"><span>	} 
+</span></span><span style="display:flex;"><span>	array[count] = val; 
+</span></span><span style="display:flex;"><span>	++count; 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这段代码实现了一个往数组中插入数据的功能。当数组满了之后，也就是代码中的 <code>count == array.length</code> 时，我们用 for 循环遍历数组求和，并清空数组，将求和之后的 <code>sum</code> 值放到数组的第一个位置，然后再将新的数据插入。但如果数组一开始就有空闲空间，则直接将数据插入数组。</p>
+<p>我们分析下这段代码的最好、最坏和平均时间复杂度。</p>
+<p>最好的情况就是数组刚好有空闲，于是直接插入即可，时间复杂度是 $O(1)$，最坏的情况就是刚好  <code>count == array.length</code> ，这个时候需要遍历整个数组，时间复杂度是 $O(n)$</p>
+<p>然后我们再来分析一下期望时间复杂度，这里一共有 <code>n+1</code> 种情况，其中有空位的种情况有 n 种的，没有空位的情况有一种，而且每种情况出现的概率都是 <code>n+1</code>，因此，期望时间复杂度为：
+$$1*\frac{1}{n+1}+1*\frac{1}{n+1}+\cdots+1*\frac{1}{n+1}+n*\frac{1}{n+1}=\frac{2n}{n+1}$$
+省略系数和常量之后，就是 $O(1)$</p>
+<p>但是这个例子中分析平均时间复杂度，其实并不需要这么复杂的计算，为什呢？</p>
+<p>我们对比一下这两个例子，会发现两个很大的区别：</p>
+<ol>
+<li><code>find()</code> 函数中，只有在极少数最理想的情况下，时间复杂度才会是 $O(1)$，而大部分情况下时间复杂度都是 $O(n)$，但是 <code>insert()</code> 函数很不一样，在大部分情况下，时间复杂度都是 $O(1)$，只有在极少数的最不理想情况下，时间复杂度才会是 $O(n)$</li>
+<li><code>insert()</code> 函数中 $O(n)$ 操作和 $O(1)$ 操作有很强的规律性和顺序性：每一次 $O(n)$ 的插入操作之后，紧接着 $n-1$ 次的 $O(1)$ 插入操作，如此循环</li>
+</ol>
+<p>针对这种更加特殊的情况，我们还有一种更加方法的分析方法：<strong>摊还分析法</strong>，通过这种方法分析得出的时间复杂度我们称之为：<strong>摊还时间复杂度</strong>。</p>
+<p>这种分析方法的核心思路是 <strong>分组</strong>。</p>
+<p>我们看这个例子，每一次 $O(n)$ 复杂度的插入操作之后，紧接着 $n-1$ 次 $O(1)$ 复杂度的插入操作，那么我们把这 n 次操作分成一组，将第一次 $O(n)$ 耗时多的操作中消耗的时间，均摊到后面 $n-1$ 耗时少的操作中，这样一组连续操作下来均摊的时间复杂度就是 $O(1)$。这就是摊还分析方法的大致思路。</p>
+<p>总结一下就是，在一个程序中，大部分时候时间复杂度都很低，只有极少数时候时间复杂度比较高，而且这些操作之间存在很强的顺序关系，这个时候就可以把这个程序的操作进行分组，将耗时多的情况下多消耗的时间，均摊到耗时少的情况中去，这样就能更快的得到这个程序的时间复杂度。</p>
+<p>从这个例子中，我们也能看出来，<strong>在能够使用摊还分析方法的场景中，一般均摊时间复杂度就等于最好时间复杂度</strong>。</p>
+<p>通过上述平均时间复杂度和均摊时间复杂度的两个例子，我们能看出来，平均时间复杂度是分析程序时间复杂度的一种特殊情况，而均摊时间复杂度又是平均时间复杂度的一种特殊情况，因此，会用到均摊时间复杂度的场合就更少了。所以，我们重点是要知道这种分析思路，并不用花太多精力在去区分和记忆。</p>
+<p>上文花了很长的篇幅讲了时间复杂度分析，理解了这些内容，下面我们再来分析空间复杂度，就简单很多了。</p>
+<h3 class="heading" id="空间复杂度分析">
+  空间复杂度分析
+  <a class="anchor" href="#%e7%a9%ba%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6%e5%88%86%e6%9e%90">#</a>
+</h3>
+<p>分析空间复杂度和分析时间复杂度的框架是一致的，都是使用大 O 表达式，也都是表示数据规模与复杂度之间的趋势关系。那么，类比一下，空间复杂度全称就是<strong>渐进空间复杂度</strong>（asymptotic space complexity），<strong>表示算法消耗的存储空间与数据规模之间的增长关系</strong>。</p>
+<p>空间复杂度分析相较于时间复杂度分析，要简单很多。看下面这个例子：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">void</span> <span style="color:#666;font-weight:bold;font-style:italic">print</span>(<span style="font-weight:bold;text-decoration:underline">int</span> n) {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">int</span>[] array = <span style="font-weight:bold;text-decoration:underline">new</span> <span style="font-weight:bold;text-decoration:underline">int</span>[n];
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> i = 0; i &lt;= n-1; i++) {
+</span></span><span style="display:flex;"><span>		array[i] = (<span style="font-weight:bold;text-decoration:underline">int</span>)(Math.random()*100);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold;text-decoration:underline">for</span>(<span style="font-weight:bold;text-decoration:underline">int</span> j = 0; j &lt;= n-1; j++) {
+</span></span><span style="display:flex;"><span>		System.out.println(array[j]);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这段代码是将一个长度为 n 的数组用 100 以内的随机数填满，然后再遍历输出。</p>
+<p>在空间使用方面，除了第二行申请了一个长度为 n 的数组 array，其他操作均没有涉及，因此这段代码的空间复杂度和 n 的大小成正比，也就是 $O(n)$</p>
+<p>常用的空间复杂度比常用的时间复杂度也少很多，一般就是 $O(1)$、 $O(n)$、 $O(n^2)$ 这三种。如果碰到特殊情况，使用分析时间复杂度的思路去分析即可。</p>
+<blockquote>
+<p>本文主要参考<a href="https://time.geekbang.org/column/intro/100017301">《数据结构与算法之美》</a>和维基百科。</p></blockquote>
+
+    </div>
+  </article>
+
+  
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flexnowrap">
+
+        <div class="single-pagination-prev">
+            
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/posts/data-structure-array/">
+                        数据结构之-数组
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/posts/java-collections-framework-in-one-article/">
+                        Java 集合框架一文通
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  
+  
+
+
+
+
+
+    
+
+
+
+
+  <footer>
+    
+
+    
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    <p>Powered by
+        <a href="https://gohugo.io/">Hugo</a>
+        and
+        <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+    </p>
+    
+    
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet" 
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  
+<script defer 
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+</body>
+
+<script src="/js/theme-switch.js"></script>
+<script defer src="/js/copy-code.js"></script>
+</html>
