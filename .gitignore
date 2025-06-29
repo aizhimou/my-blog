@@ -1,0 +1,13 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Hugo build directories and files
+/public/
+/resources/
+.hugo_build.lock
+deploy.sh
+
+# Log files
+*.log

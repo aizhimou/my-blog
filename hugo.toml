@@ -1,0 +1,87 @@
+baseURL = 'https://asimov.top/'
+languageCode = 'en-us'
+title = 'Asimov Ai'
+theme = 'typo'
+
+[taxonomies]
+tag = 'tags'
+
+[params]
+# Meta description
+description = "Asimov's Personal Blog"
+
+# Appearance settings
+theme = 'auto'
+colorPalette = 'default'
+hideHeader = false
+
+# Intro on main page, content is markdown
+homeIntroTitle = 'Hi!'
+homeIntroContent = """
+I'm a software developer and I've been building enterprise apps for years. I absolutely love playing around with new tools and tech, and I get a real kick out of using them to solve tricky problems. I'm currently based in Auckland, New Zealand – it's an beautiful city and I love it here!<br>
+Feel free to read [about myself](/about/) or to look at my [posts](/posts/).
+"""
+
+# Collection to display on home
+homeCollectionTitle = 'Posts'
+homeCollection = 'posts'
+
+# Lists parameters
+paginationSize = 100
+listSummaries = true
+listDateFormat = '2 Jan 2006'
+
+# Breadcrumbs
+[params.breadcrumbs]
+enabled = true
+showCurrentPage = true
+home = "Home"
+
+# Social icons
+[[params.social]]
+name = "github"
+url = "https://github.com/aizhimou"
+
+[[params.social]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/%E5%BF%97%E8%B0%8B-%E8%89%BE-667bb22b9/"
+
+[[params.social]]
+name = "x"
+url = "https://x.com/aizhimoug"
+
+
+# Main menu pages
+# [[params.menu]]
+# name = "home"
+# url = "/"
+
+[[params.menu]]
+name = "posts"
+url = "/posts"
+
+[[params.menu]]
+name = "projects"
+url = "/projects"
+
+[[params.menu]]
+name = "about"
+url = "/about"
+
+# Syntax highlight on code blocks
+[markup]
+[markup.highlight]
+style = 'algol'
+[markup.goldmark]
+[markup.goldmark.renderer]
+unsafe = true
+
+# Giscus comments
+[params.giscus]
+enable = false
+repo = "user/repo"
+repoid = "repoId"
+category = "General"
+categoryid = "categoryId"
+mapping = "pathname"
+theme = "preferred_color_scheme"
