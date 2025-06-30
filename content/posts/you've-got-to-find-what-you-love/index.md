@@ -3,6 +3,8 @@ title: "You've got to find what you love"
 date: "2005-06-12"
 summary: "This is a speech that has influenced my whole life."
 hideBackToTop: true
+images: 
+  - “images/1912A5CD77CF.jpg"
 ---
 
 > This is a prepared text of the Commencement Address delivered by Steve Jobs, CEO of Apple Computer and of Pixar Animation Studios, on June 12, 2005.

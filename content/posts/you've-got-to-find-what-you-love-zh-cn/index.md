@@ -5,6 +5,8 @@ hideBackToTop: true
 _build:
   render: true
   list: never
+images: 
+  - “images/1912A5CD77CF.jpg"
 ---
 
 *这是 ChatGPT 翻译的中文版本，如果能阅读英文，推荐阅读 [原文版本](/posts/youve-got-to-find-what-you-love/)。*
