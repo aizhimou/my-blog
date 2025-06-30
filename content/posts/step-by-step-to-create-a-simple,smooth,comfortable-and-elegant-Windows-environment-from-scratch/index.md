@@ -3,7 +3,7 @@ title: "手把手教你从 0 开始打造一个简洁流畅舒适优雅的 Windo
 date: "2016-07-13"
 summary: "多年前在简书上写的一篇文章，今天简书这个平台已经烂了，但是这篇文章的部分内容任然对 Windows 用户有参考价值。"
 toc: true
-readTime: true
+readTime: false
 autonumber: false
 math: true
 tags: ["windows", "software"]

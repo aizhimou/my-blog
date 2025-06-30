@@ -3,7 +3,7 @@ title: "Redis 分布式高可用终极指南"
 date: "2020-08-21"
 summary: "本文试图将 redis 分布式和集群方案从概念理解到技术选型到搭建使的整个过程用最简单的语言讲述清楚。"
 toc: true
-readTime: true
+readTime: false
 autonumber: false
 math: true
 tags: ["database", "redis"]

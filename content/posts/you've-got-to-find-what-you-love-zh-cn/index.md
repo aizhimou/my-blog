@@ -1,11 +1,13 @@
 ---
 title: "你必须找到你所爱的事物"
 date: "2005-06-12"
-summary: "这次演讲影响了我的一生。"
 hideBackToTop: true
+_build:
+  render: true
+  list: never
 ---
 
-*这是 ChatGPT 翻译的中文版本，推荐阅读 [英文原文版本](/speeches/youve-got-to-find-what-you-love/)。*
+*这是 ChatGPT 翻译的中文版本，如果能阅读英文，推荐阅读 [原文版本](/posts/youve-got-to-find-what-you-love/)。*
 
 > 这是苹果公司和皮克斯动画工作室CEO史蒂夫·乔布斯于2005年6月12日，在斯坦福大学毕业典礼上的演讲稿。
 

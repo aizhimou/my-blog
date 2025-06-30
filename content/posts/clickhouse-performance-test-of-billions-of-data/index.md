@@ -3,7 +3,7 @@ title: "Clickhouse 亿级数据性能测试"
 date: "2021-03-15"
 summary: "一个单表 6 亿数据量的性能测试，有做超大数据量分析技术选型需求的朋友可以参考。"
 toc: true
-readTime: true
+readTime: false
 autonumber: false
 math: true
 tags: ["database", "java"]

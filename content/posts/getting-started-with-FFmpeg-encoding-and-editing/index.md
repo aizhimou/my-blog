@@ -3,7 +3,7 @@ title: "FFmpeg 编码和编辑入门"
 date: "2021-08-07"
 summary: "本文主要内容翻译自一篇介绍 FFmpeg 入门知识的英文 Web 幻灯片，加入了一些个人理解与学习注释。"
 toc: true
-readTime: true
+readTime: false
 autonumber: false
 math: true
 tags: ["ffmpeg"]

@@ -3,7 +3,7 @@ title: "Java 集合框架一文通"
 date: "2022-07-21"
 summary: "JDK 中最常用的工具框架之一。"
 toc: true
-readTime: true
+readTime: false
 autonumber: false
 math: true
 tags: ["java", "data structure"]

@@ -3,7 +3,7 @@ title: "数据结构之-数组"
 date: "2022-01-18"
 summary: "几乎所有编程语言都会用到的数据结构-数组。"
 toc: true
-readTime: true
+readTime: false
 autonumber: false
 math: true
 tags: ["data structure"]
