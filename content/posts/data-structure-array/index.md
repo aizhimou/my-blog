@@ -9,6 +9,9 @@ math: true
 tags: ["data structure"]
 showTags: true
 hideBackToTop: false
+_build:
+  render: true
+  list: never
 ---
 
 ## 简介

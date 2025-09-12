@@ -9,6 +9,9 @@ math: true
 tags: ["windows", "software"]
 showTags: true
 hideBackToTop: false
+_build:
+  render: true
+  list: never
 ---
 
 > 本文撰写于多年前，可能有些链接已经失效，请见谅。

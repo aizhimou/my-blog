@@ -1,5 +1,5 @@
 ---
-title: "You've got to find what you love"
+title: "Steve Jobs: You've got to find what you love"
 date: "2005-06-12"
 summary: "This is a speech that has influenced my whole life."
 hideBackToTop: true
