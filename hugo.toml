@@ -16,15 +16,18 @@ colorPalette = 'default'
 hideHeader = false
 
 # Intro on main page, content is markdown
-homeIntroTitle = 'Hi!'
+homeIntroTitle = 'Hi there ~'
 homeIntroContent = """
-I'm a software developer and I've been building enterprise apps for years. I absolutely love playing around with new tools and tech, and I get a real kick out of using them to solve tricky problems. I'm currently based in Auckland, New Zealand – it's an beautiful city and I love it here!<br>
-Feel free to read [about myself](/about/) or to look at my [posts](/posts/).
+Nice to meet you here :) &nbsp;&nbsp; My name is Asimov. <br>
+I'm a software developer and I've been building things for years. I absolutely love playing around with new tools and tech, and love to using them to make life easier. <br>
+**I am currently looking for job opportunities. If you know of any roles in Auckland (or remote positions from anywhere in the world), I’d truly appreciate a recommendation.** <br>
+Feel free to read [about myself](/about/) or to look at my [projects](/projects) and my [posts](/posts/).
+[![Asimov's GitHub stats](https://github-readme-stats-six-navy-14.vercel.app/api?username=aizhimou&show_icons=true&theme=transparent&hide=contribs,prs)](https://github.com/aizhimou)
 """
 
 # Collection to display on home
-homeCollectionTitle = 'Posts'
-homeCollection = 'posts'
+# homeCollectionTitle = 'Posts'
+# homeCollection = 'posts'
 
 # Lists parameters
 paginationSize = 100
@@ -43,12 +46,12 @@ name = "github"
 url = "https://github.com/aizhimou"
 
 [[params.social]]
-name = "linkedin"
-url = "https://www.linkedin.com/in/%E5%BF%97%E8%B0%8B-%E8%89%BE-667bb22b9/"
-
-[[params.social]]
 name = "x"
 url = "https://x.com/aizhimoug"
+
+[[params.social]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/%E5%BF%97%E8%B0%8B-%E8%89%BE-667bb22b9/"
 
 
 # Main menu pages
