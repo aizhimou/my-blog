@@ -3,6 +3,41 @@ languageCode = 'en-us'
 title = 'Asimov Ai'
 theme = 'typo'
 
+[module]
+  [[module.imports]]
+    path = "github.com/divinerites/plausible-hugo"
+
+[params.plausible]
+  # (必须) 设置为 true 来启用脚本
+  enable = true
+
+  # (必须) 填写你被追踪的网站域名 (不是你Plausible的地址)
+  domain = "asimov.top"
+
+  # --- 以下是为自托管实例准备的关键配置 ---
+
+  # (自托管必须修改) 指向你自托管Plausible实例的JS脚本地址
+  # 格式为 "https://<你的Plausible域名>/js/script.js"
+  scriptSrc = "https://plausible.asimov.top/js/script.js" 
+
+  # (自托管建议配置) 指向你自托管Plausible实例的API地址
+  # 某些功能(如显示实时访客)需要用到
+  # 格式为 "https://<你的Plausible域名>"
+  dataApiHost = "https://plausible.asimov.top"
+
+  # --- 以下是可选测量功能的开关 (根据我们之前的讨论按需开启) ---
+  
+  # 跟踪出站链接点击
+  outboundLinks = true 
+  # 跟踪文件下载
+  fileDownloads = false
+  # 跟踪404页面 (需要你的404页面也加载了此脚本)
+  notFound = false
+  # 适用于SPA应用的哈希路由模式
+  hashBased = false
+  # 启用自定义事件跟踪 (需要你手动在JS中调用 `plausible('event')`)
+  customEvents = true
+
 [taxonomies]
 tag = 'tags'
 
