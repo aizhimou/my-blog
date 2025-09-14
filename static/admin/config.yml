@@ -4,10 +4,10 @@ backend:
   branch: main 
   base_url: https://my-hugo-blog-auth-proxy-bqr5s506d-aizhimous-projects.vercel.app
   auth_endpoint: api/auth
-  auth_scope: repo,user
+  auth_scope: repo
 
-# media_folder: static/img
-# public_folder: /img
+media_folder: 'static/uploads' # 全局默认的媒体文件夹
+public_folder: '/uploads'
 
 collections:
   - name: 'posts'
