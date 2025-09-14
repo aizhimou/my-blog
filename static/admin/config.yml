@@ -2,7 +2,8 @@ backend:
   name: github
   repo: aizhimou/my-blog 
   branch: main 
-  base_url: https://my-hugo-blog-auth-proxy-bqr5s506d-aizhimous-projects.vercel.app
+  # base_url: https://my-hugo-blog-auth-proxy-bqr5s506d-aizhimous-projects.vercel.app
+  base_url: https://decap-proxy.asimov.workers.dev
   auth_endpoint: api/auth
   auth_scope: repo
 
@@ -23,5 +24,10 @@ collections:
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
-      - { label: 'Description', name: 'description', widget: 'string' }
+      - { label: 'Summary', name: 'summary', widget: 'string' }
+      - { label: 'Toc', name: 'toc', widget: "boolean", default: true }
+      - { label: 'Autonumber', name: 'autonumber', widget: "boolean", default: false }
+      - { label: 'Math', name: 'math', widget: "boolean", default: true }
+      - { label: 'ShowTags', name: 'showTags', widget: "boolean", default: true }
+      - { label: 'Tags', name: 'tags', widget: "list" }
       - { label: 'Body', name: 'body', widget: 'markdown' }
