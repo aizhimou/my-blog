@@ -10,22 +10,12 @@ theme = 'typo'
 [params.plausible]
   # (必须) 设置为 true 来启用脚本
   enable = true
-
   # (必须) 填写你被追踪的网站域名 (不是你Plausible的地址)
   domain = "asimov.top"
+  # 自托管 Plausible
+  selfhosted_domain="plausible.asimov.top"
 
-  # --- 以下是为自托管实例准备的关键配置 ---
-
-  # (自托管必须修改) 指向你自托管Plausible实例的JS脚本地址
-  # 格式为 "https://<你的Plausible域名>/js/script.js"
-  scriptSrc = "https://plausible.asimov.top/js/script.js" 
-
-  # (自托管建议配置) 指向你自托管Plausible实例的API地址
-  # 某些功能(如显示实时访客)需要用到
-  # 格式为 "https://<你的Plausible域名>"
-  dataApiHost = "https://plausible.asimov.top"
-
-  # --- 以下是可选测量功能的开关 (根据我们之前的讨论按需开启) ---
+  # --- 以下是可选测量功能的开关 ---
   
   # 跟踪出站链接点击
   outboundLinks = true 
