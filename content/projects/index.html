@@ -3,82 +3,39 @@ hideBackToTop: true
 hidePagination: true
 ---
 
-<style>
-  /* 项目网格容器 */
-  .project-grid {
-    display: flex; /* 启用 Flexbox 布局 */
-    flex-wrap: wrap; /* 允许项目换行 */
-    gap: 20px; /* 设置项目之间的间距 */
-    list-style: none; /* 移除可能的列表样式 */
-    padding: 0;
-    margin: 0;
-  }
+<h3>Some of my opensource projects</h3>
+<div id="github-projects-container">Loading...</div>
 
-  /* 单个项目卡片 */
-  .project-card {
-    /* 大屏幕上，一行放两个，每个占50%宽度，减去一半的间距以保证对齐 */
-    flex-basis: calc(50% - 10px); 
-    flex-grow: 1; /* 允许项目拉伸填充剩余空间 */
-    /*min-width: 300px; /* 防止卡片被过度压缩 */*/
-    box-sizing: border-box; /* 确保 padding 和 border 不会撑大盒子 */
-  }
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const repos = ["aizhimou/pigeon-pod", "aizhimou/sparrow", "aizhimou/jav-play", "aizhimou/mteam-download"];
+  const container = document.getElementById('github-projects-container');
+  container.innerHTML = ''; 
 
-  /* 卡片内的图片样式 */
-  .project-card img {
-    max-width: 100%; /* 图片宽度自适应容器 */
-    height: auto;
-    display: block; /* 移除图片下方的额外空白 */
-    /*border-radius: 6px; /* 可选：给图片加个小圆角 */*/
-    transition: transform 0.2s ease-in-out; /* 可选：鼠标悬浮时的动画效果 */
-  }
-
-  /* 可选：鼠标悬浮时图片轻微放大 */
-  .project-card a:hover img {
-    transform: scale(1.02);
-  }
-
-  /* 响应式设计的关键：媒体查询 */
-  /* 当屏幕宽度小于等于 768px 时 (典型的平板和手机) */
-  @media (max-width: 768px) {
-    .project-card {
-      /* 在小屏幕上，让每个卡片占据100%的宽度，实现单列布局 */
-      flex-basis: 100%; 
-    }
-  }
-</style>
-
-<h2>Some of my opensource projects</h2>
-<p>Take a look, they are quite intresting :)</p>
-
-<div class="project-grid">
-  <div class="project-card">
-    <a href="https://github.com/aizhimou/sparrow" target="_blank" rel="noopener noreferrer">
-      <img src="https://github-readme-stats.vercel.app/api/pin/?username=aizhimou&repo=sparrow&theme=transparent" alt="sparrow project card">
-    </a>
-  </div>
-
-  <div class="project-card">
-    <a href="https://github.com/aizhimou/pigeon-pod" target="_blank" rel="noopener noreferrer">
-      <img src="https://github-readme-stats.vercel.app/api/pin/?username=aizhimou&repo=pigeon-pod&theme=transparent" alt="pigeon-pod project card">
-    </a>
-  </div>
-
-  <div class="project-card">
-    <a href="https://github.com/aizhimou/jav-play" target="_blank" rel="noopener noreferrer">
-      <img src="https://github-readme-stats.vercel.app/api/pin/?username=aizhimou&repo=jav-play&theme=transparent" alt="jav-play project card">
-    </a>
-  </div>
-
-  <div class="project-card">
-    <a href="https://github.com/aizhimou/jav-play-go" target="_blank" rel="noopener noreferrer">
-      <img src="https://github-readme-stats.vercel.app/api/pin/?username=aizhimou&repo=jav-play-go&theme=transparent" alt="jav-play-go project card">
-    </a>
-  </div>
-
-  <div class="project-card">
-    <a href="https://github.com/aizhimou/mteam-download" target="_blank" rel="noopener noreferrer">
-      <img src="https://github-readme-stats.vercel.app/api/pin/?username=aizhimou&repo=mteam-download&theme=transparent" alt="mteam-download project card">
-    </a>
-  </div>
-
-</div>
+  repos.forEach(repoName => {
+    fetch(`https://api.github.com/repos/${repoName}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+         const card = `
+           <div class="project-card">
+             <h4><a href="${data.html_url}" target="_blank">${data.name}</a></h4>
+               <div style="display: flex; align-items: center; gap: 8px;">
+                <span>${data.language}</span> &nbsp;&nbsp;
+                <span style="display: flex; align-items: center; gap: 4px;">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                   <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                 </svg>
+                 <span>${data.stargazers_count}</span>
+                </span>
+               </div>
+             <p>${data.description}</p>
+           </div>
+         `;
+        container.innerHTML += card;
+      })
+      .catch(error => console.error('Error fetching repo:', error));
+  });
+});
+</script>
