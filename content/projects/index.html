@@ -6,36 +6,68 @@ hidePagination: true
 <h3>Some of my opensource projects</h3>
 <div id="github-projects-container">Loading...</div>
 
+<style>
+  .project-card {
+    border-bottom: 1px dashed #666;
+    padding: 20px 0;
+    margin-bottom: 0;
+  }
+  
+  .project-card:last-child {
+    border-bottom: none; /* 最后一个项目不显示分隔线 */
+  }
+  
+  .project-card h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .project-card p {
+    margin-top: 8px;
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const repos = ["aizhimou/pigeon-pod", "aizhimou/sparrow", "aizhimou/jav-play", "aizhimou/mteam-download"];
   const container = document.getElementById('github-projects-container');
   container.innerHTML = ''; 
 
-  repos.forEach(repoName => {
+  // 创建所有API请求的Promise数组
+  const promises = repos.map(repoName => 
     fetch(`https://api.github.com/repos/${repoName}`)
       .then(response => response.json())
-      .then(data => {
-        console.log(data);
-         const card = `
-           <div class="project-card">
-             <h4><a href="${data.html_url}" target="_blank">${data.name}</a></h4>
-               <div style="display: flex; align-items: center; gap: 8px;">
+      .catch(error => {
+        console.error('Error fetching repo:', error);
+        return null; // 返回null表示请求失败
+      })
+  );
+
+  // 等待所有请求完成，保持原始顺序
+  Promise.all(promises).then(results => {
+    results.forEach((data, index) => {
+      if (data) { // 只渲染成功的请求
+        const card = `
+          <div class="project-card">
+            <h4><a href="${data.html_url}" target="_blank">${data.name}</a></h4>
+              <div style="display: flex; align-items: center; gap: 8px;">
                 <span>${data.language}</span> &nbsp;&nbsp;
                 <span style="display: flex; align-items: center; gap: 4px;">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
-                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                   <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-                 </svg>
-                 <span>${data.stargazers_count}</span>
-                </span>
-               </div>
-             <p>${data.description}</p>
-           </div>
-         `;
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                  </svg>
+                  <span>${data.stargazers_count}</span>
+                 </span>
+              </div>
+            <p>${data.description}</p>
+          </div>
+        `;
         container.innerHTML += card;
-      })
-      .catch(error => console.error('Error fetching repo:', error));
+      }
+    });
   });
 });
 </script>

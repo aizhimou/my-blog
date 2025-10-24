@@ -43,7 +43,7 @@ hideHeader = false
 # Intro on main page, content is markdown
 homeIntroTitle = 'Hi there ~'
 homeIntroContent = """
-Nice to meet you here :) &nbsp;&nbsp; My name is Asimov. <br>
+My name is Asimov. &nbsp;&nbsp; Nice to meet you here :) <br>
 I'm a software developer and I've been building things for years. I absolutely love playing around with new tools and tech, and love to using them to make life easier. <br>
 **I am currently looking for job opportunities. If you know of any roles in Auckland (or remote positions from anywhere in the world), I’d truly appreciate a recommendation.** <br>
 Feel free to read [about myself](/about/) or to look at my [projects](/projects) and my [posts](/posts/).
