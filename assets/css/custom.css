@@ -2,3 +2,9 @@
     --main-width: 1024px; /* overrides default of 780px */
 }
 
+
+@media (max-width: 768px) {
+  .line-date {
+    display: none !important;
+  }
+}
