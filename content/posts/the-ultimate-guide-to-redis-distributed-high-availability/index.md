@@ -1,7 +1,7 @@
 ---
-title: "Redis 分布式高可用终极指南"
+title: "Redis 分布式与高可用全解：Sentinel 与 Cluster 实战指南"
 date: "2020-08-21"
-summary: "本文试图将 redis 分布式和集群方案从概念理解到技术选型到搭建使的整个过程用最简单的语言讲述清楚。"
+summary: "系统梳理分布式与集群的核心概念，结合一主多从、Sentinel 与 Cluster 的部署步骤、关键配置与故障切换演示，帮助你做出清晰选型并快速落地高可用方案。"
 toc: true
 readTime: false
 autonumber: false
